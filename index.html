@@ -19,6 +19,7 @@
 			.container {
 				display: flex;
 				justify-content: space-around;
+        flex-wrap: wrap;
 			}
 		</style>
 	</head>
@@ -26,12 +27,12 @@
 		<div class="container">
 			<div class="item">
 				<p>Input some Go code...</p>
-				<textarea id="input" cols="90" rows="20"></textarea>
+				<textarea id="input" cols="60" rows="20"></textarea>
 				<p><button onclick="formatJS()">Format</button></p>
 			</div>
 			<div class="item">
 				<p>And see it formatted here, using <code>gofmat</code> right in the browser</p>
-				<textarea name="result" id="result" cols="90" rows="20"></textarea>
+				<textarea name="result" id="result" cols="60" rows="20"></textarea>
 			</div>
 		</div>
 	</body>
