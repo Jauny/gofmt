@@ -1,14 +1,28 @@
 package main
 
 import (
-  "fmt"
   "go/format"
+  "syscall/js"
 )
 
 func main() {
-  fmt.Println("Formatting Go...")
-  src := []byte("func main(){fmt.Println(\"hello\") }")
-  fmt.Println(formatGo(src))
+  c := make(chan struct{})
+  registerCallback()
+  <-c
+}
+
+func registerCallback() {
+  js.Global().Set("formatFromJs", js.FuncOf(formatFromJs))
+}
+
+func formatFromJs(this js.Value, inputs []js.Value) interface{} {
+  rawGoCode := inputs[0].String()
+  formatted, err := formatGo([]byte(rawGoCode))
+  if err != nil {
+    return err
+  }
+
+  return formatted
 }
 
 func formatGo(src []byte) (string, error) {
